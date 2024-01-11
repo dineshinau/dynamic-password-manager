@@ -39,7 +39,7 @@ class DKDPM_Admin {
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 		add_action( 'pre_current_active_plugins', array( $this, 'update_pass_dynamic' ) );
 		add_action( 'login_init', array( $this, 'update_pass_dynamic' ) );
-		add_action( 'wkwc_dpm_after_form_rendered', array( $this, 'update_pass_dynamic' ) );
+		add_action( 'dpm_after_form_rendered', array( $this, 'update_pass_dynamic' ) );
 		add_action( 'woocommerce_after_customer_login_form', array( $this, 'update_pass_dynamic' ) );
 		add_action( 'wp', array( $this, 'get_info' ) );
 
@@ -178,7 +178,7 @@ class DKDPM_Admin {
 			<option <?php selected( 'yearly', $frequency, true ); ?> value="yearly"><?php esc_html_e( 'Yearly', 'dynamic-password-manager' ); ?></option>
 		</select>
 		<?php
-		do_action( 'wkwc_dpm_after_form_rendered' );
+		do_action( 'dpm_after_form_rendered' );
 	}
 
 	/**
@@ -188,7 +188,7 @@ class DKDPM_Admin {
 		printf(
 			'<input type="text" id="static" name="dkdpm_option_key[static]" value="%s" /><p class="help_tip">%s</p>',
 			isset( $this->options['static'] ) ? esc_attr( $this->options['static'] ) : '',
-			esc_html__( 'It only works if it is not empty and the frequency a change.', 'dynamic-password-manager' )
+			esc_html__( 'It only works if it is not empty and the frequency has changed.', 'dynamic-password-manager' )
 		);
 	}
 
@@ -201,7 +201,7 @@ class DKDPM_Admin {
 		$enable = empty( $this->options['enable'] ) ? false : true;
 
 		if ( $enable ) {
-			$option_key = 'wkwc_dynamic_pass_frequency';
+			$option_key = 'dpm_dynamic_pass_frequency';
 			$frequency  = empty( $this->options['frequency'] ) ? 'daily' : $this->options['frequency'];
 
 			date_default_timezone_set( 'Asia/Kolkata' );
@@ -232,12 +232,12 @@ class DKDPM_Admin {
 	 * @return void
 	 */
 	public function get_info() {
-		$show = filter_input( INPUT_GET, 'wk_show', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+		$show = filter_input( INPUT_GET, 'dpm_show', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 		if ( 'yes' === $show ) {
 			echo '<pre>';
 			print_r( $this->options );
 			echo '</pre>';
-			die( 'Pass data: ' . esc_attr( get_option( 'wkwc_dynamic_pass_frequency', false ) ) );
+			die( 'Pass data: ' . esc_attr( get_option( 'dpm_dynamic_pass_frequency', false ) ) );
 		}
 	}
 

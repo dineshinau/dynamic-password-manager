@@ -1,6 +1,6 @@
 === Dynamic Password Manager ===
 
-Contributors: Webkul
+Contributors: dineshinau
 
 Tags: dyanmic, password, security, prefixed password, random, encripted
 
@@ -13,6 +13,7 @@ WPML Compatible: yes
 Multisite Compatible: yes
 
 License: GNU/GPL v3
+License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
 == Description ==
 
